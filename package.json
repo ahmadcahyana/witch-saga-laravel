@@ -1,4 +1,7 @@
 {
+    "name": "witch-saga",
+    "description": "a really cool app",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
         "postinstall": "npm run prod",
@@ -22,5 +25,8 @@
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0",
         "vue-template-compiler": "^2.6.12"
+    },
+    "engines": {
+        "node": "12.x"
     }
 }
