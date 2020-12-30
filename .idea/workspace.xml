@@ -4,7 +4,6 @@
     <list default="true" id="50393204-c46e-4236-bf42-473992ed6af2" name="Default Changelist" comment="init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Home.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +150,7 @@
       <option name="presentableId" value="Default" />
       <updated>1609340704660</updated>
       <workItem from="1609340705774" duration="16107000" />
-      <workItem from="1609360253972" duration="3019000" />
+      <workItem from="1609360253972" duration="4048000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1609351168176</created>

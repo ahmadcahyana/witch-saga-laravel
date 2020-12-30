@@ -105,7 +105,6 @@
                 url: "{{ url('/') }}",
                 data: $('#expel').serialize(),
                 success: function(response){
-                    console.log(response)
                     $('#send_form').html('Submit');
                     if(response['error'] === -1){
                         $('#succesModal').modal();

@@ -35,6 +35,7 @@ class Home extends Controller
             else {
                 $person = new Person($request->age_of_death[$i], $request->year_of_death[$i]);
                 $sum_killed += $person->getResult()['killed'];
+                $results['error'] = 0;
                 array_push($results['data'], $person->getResult());
             }
         }
@@ -51,9 +52,6 @@ class Home extends Controller
 
     public function show(Request $request) {
         $persons = $request;
-        if($persons['error'] == -1){
-            return;
-        }
         return view('show', compact('persons'));
     }
 }
