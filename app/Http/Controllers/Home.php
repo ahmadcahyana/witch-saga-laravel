@@ -30,6 +30,7 @@ class Home extends Controller
                 $results['data'] = [];
                 $results['message'] = "Oops... Year of Date must be bigger than Age of Date";
                 $results['error'] = -1;
+                break;
             }
             else {
                 $person = new Person($request->age_of_death[$i], $request->year_of_death[$i]);
