@@ -33,8 +33,8 @@
                                 <div class="col-lg-9">
                                     <div id="inputFormRow">
                                         <div class="input-group mb-3">
-                                            <input type="text" name="year_of_death[]" class="form-control" placeholder="Enter Year of Death" autocomplete="off" required>
-                                            <input type="text" name="age_of_death[]" class="form-control" placeholder="Enter Age of Death" autocomplete="off" required>
+                                            <input type="number" name="year_of_death[]" class="form-control" placeholder="Enter Year of Death" autocomplete="off" required>
+                                            <input type="number" name="age_of_death[]" class="form-control" placeholder="Enter Age of Death" autocomplete="off" required>
                                             <div class="input-group-append">
                                                 <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
                                             </div>
@@ -57,7 +57,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">We Solve the Riddle!</h5>
+                    <h5 class="modal-title load_title"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -78,8 +78,8 @@
             var html = '';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group mb-3">';
-            html += '<input type="text" name="year_of_death[]" class="form-control m-input" placeholder="Enter Year of Death" autocomplete="off" required>';
-            html += '<input type="text" name="age_of_death[]" class="form-control m-input" placeholder="Enter Age of Death" autocomplete="off" required>';
+            html += '<input type="number" name="year_of_death[]" class="form-control m-input" placeholder="Enter Year of Death" autocomplete="off" required>';
+            html += '<input type="number" name="age_of_death[]" class="form-control m-input" placeholder="Enter Age of Death" autocomplete="off" required>';
             html += '<div class="input-group-append">';
             html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
             html += '</div>';
@@ -100,15 +100,26 @@
                 }
             });
             $('#send_form').html('Sending..');
-            console.log("cccc")
             $.ajax({
                 type: "POST",
                 url: "{{ url('/') }}",
                 data: $('#expel').serialize(),
                 success: function(response){
-                    $('#send_form').html('Submit');
-                    renderModal(response);
                     console.log(response)
+                    $('#send_form').html('Submit');
+                    if(response['error'] === -1){
+                        $('#succesModal').modal();
+                        $('#succesModal').on('shown.bs.modal', function(){
+                            $('#succesModal .load_modal').text('Error : -1');
+                            $('#succesModal .load_title').text(response['message']);
+                        });
+                        $('#succesModal').on('hidden.bs.modal', function(){
+                            $('#succesModal .modal-body').data('');
+                        });
+                    }
+                    else {
+                        renderModal(response);
+                    }
                 }
             });
         });
@@ -121,6 +132,7 @@
                     $('#succesModal').modal();
                     $('#succesModal').on('shown.bs.modal', function(){
                         $('#succesModal .load_modal').html(response);
+                        $('#succesModal .load_title').text('We Solve the Riddle!');
                     });
                     $('#succesModal').on('hidden.bs.modal', function(){
                         $('#succesModal .modal-body').data('');

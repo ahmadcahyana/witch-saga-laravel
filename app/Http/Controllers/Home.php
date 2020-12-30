@@ -19,22 +19,40 @@ class Home extends Controller
     {
         $sum_killed = 0;
         $results['data'] = array();
-        $persons = array();
         for($i = 0; $i < count($request->year_of_death); $i++){
-            $person = new Person($request->age_of_death[$i], $request->year_of_death[$i]);
-            array_push($persons, $person);
+            if ($request->year_of_death[$i] <= 0 or $request->age_of_death[$i] <= 0){
+                $results['data'] = [];
+                $results['message'] = "Oops... Please input positive number!";
+                $results['error'] = -1;
+                break;
+            }
+            elseif (($request->year_of_death[$i] - $request->age_of_death[$i]) < 1){
+                $results['data'] = [];
+                $results['message'] = "Oops... Year of Date must be bigger than Age of Date";
+                $results['error'] = -1;
+            }
+            else {
+                $person = new Person($request->age_of_death[$i], $request->year_of_death[$i]);
+                $sum_killed += $person->getResult()['killed'];
+                array_push($results['data'], $person->getResult());
+            }
         }
-        foreach ($persons as $person){
-            $sum_killed += $person->getResult()['killed'];
-            array_push($results['data'], $person->getResult());
+        if ($results['error'] != -1){
+            $average = $sum_killed / count($results['data']);
+
         }
-        $average = $sum_killed / count($persons);
+        else{
+            $average = 0;
+        }
         $results['average'] = $average;
         return Response()->json($results);
     }
 
     public function show(Request $request) {
         $persons = $request;
+        if($persons['error'] == -1){
+            return;
+        }
         return view('show', compact('persons'));
     }
 }
